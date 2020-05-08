@@ -9,7 +9,7 @@
   }
 </style>
 
-<h1>Hands washing app</h1>
+<h1>Handwashing app</h1>
 
 <Timer />
 
