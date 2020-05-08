@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "..\\..\\App.svelte",
+    "..\\..\\HowTo.svelte",
+    "..\\..\\ProgressBar.svelte",
+    "..\\..\\Timer.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\r\n  import HowTo from 'components/HowTo.svelte'\r\n  import Timer from 'components/Timer.svelte'\r\n\r\n  let audio\r\n\r\n</script>\r\n\r\n<style>\r\n  h1 {\r\n    text-align: center;\r\n  }\r\n</style>\r\n\r\n<h1>Handwashing app</h1>\r\n\r\n<Timer on:done={ () => audio.play() }/>\r\n\r\n<HowTo />\r\n\r\n<audio bind:this={audio}>\r\n  <source src=\"sounds/oh-yeah.wav\" />\r\n</audio>",
+    "<style>\r\n  img {\r\n    width: 100%;\r\n  }\r\n  h3 {\r\n    text-align: center\r\n  }\r\n</style>\r\n\r\n<div bp=\"grid\">\r\n  <img bp=\"offset-5@md 4@md 12@sm\"\r\n  src=\"images/handwashing.png\" alt=\"How to wash your hands\">\r\n</div>\r\n\r\n<h3>\r\n  <a href=\"https://www.who.int/gpsc/clean_hands_protection/en/\">Picture source</a>\r\n  <a href=\"https://www.who.int/gpsc/clean_hands_protection/en/\">Sound source</a>\r\n</h3>\r\n",
+    "<script>\r\n  export let value = 20\r\n</script>\r\n\r\n<style>\r\n  .progress-container {\r\n    margin: 20px 0;\r\n    border: solid rgb(194, 194, 194) 2px;\r\n  }\r\n  .progress-bar {\r\n    height: 30px;\r\n    background-color: rgb(77, 199, 55);\r\n  }\r\n</style>\r\n\r\n<div bp=\"grid\">\r\n  <div bp=\"offset-5@md 4@md 12@sm\" class=\"progress-container\">\r\n    <div class=\"progress-bar\" style=\"width: { value }%;\"></div>\r\n      <span class=\"sr-only\">%</span>\r\n  </div>\r\n</div>",
+    "<script>\r\n  import { createEventDispatcher } from 'svelte'\r\n  import ProgressBar from 'components/ProgressBar.svelte'\r\n\r\n  const dispatch = createEventDispatcher()\r\n\r\n  let totalSeconds = 20\r\n  let secondsLeft = totalSeconds\r\n\r\n  let isRunning = false\r\n\r\n  $: secondsElapsed = totalSeconds - secondsLeft\r\n  $: value = secondsElapsed * 100 / totalSeconds\r\n\r\n  const start = () => {\r\n    isRunning = true\r\n    const interval = setInterval(() => {\r\n      secondsLeft--\r\n      if (secondsLeft <=0) {\r\n        clearInterval(interval)\r\n        isRunning = false\r\n        secondsLeft = totalSeconds\r\n        dispatch('done', `you washed your hands for ${totalSeconds} seconds`)\r\n      }\r\n    }, 1000)\r\n  }\r\n\r\n</script>\r\n\r\n<style>\r\n  h2 {\r\n    margin: 0;\r\n  }\r\n  .start {\r\n    background-color: rgb(154, 73, 73);\r\n    width: 100%;\r\n  }\r\n  .start[disabled] {\r\n    background-color: rgb(194, 194, 194);\r\n    cursor: not-allowed;\r\n  }\r\n</style>\r\n\r\n<div bp=\"grid\">\r\n  <h2 bp=\"offset-5@md 4@md 12@sm\">\r\n    Seconds Left: { secondsLeft }\r\n  </h2>\r\n</div>\r\n\r\n<ProgressBar {value}/>\r\n\r\n<div bp=\"grid\">\r\n  <button on:click={start} disabled={isRunning} bp=\"offset-5@md 4@md 12@sm\" class=\"start\">Start</button>\r\n</div>\r\n"
+  ],
+  "names": [],
+  "mappings": "AASE,EAAE,cAAC,CAAC,AACF,UAAU,CAAE,MAAM,AACpB,CAAC;ACVD,GAAG,cAAC,CAAC,AACH,KAAK,CAAE,IAAI,AACb,CAAC,AACD,EAAE,cAAC,CAAC,AACF,UAAU,CAAE,MAAM;EACpB,CAAC;ACDD,mBAAmB,eAAC,CAAC,AACnB,MAAM,CAAE,IAAI,CAAC,CAAC,CACd,MAAM,CAAE,KAAK,CAAC,IAAI,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,AACtC,CAAC,AACD,aAAa,eAAC,CAAC,AACb,MAAM,CAAE,IAAI,CACZ,gBAAgB,CAAE,IAAI,EAAE,CAAC,CAAC,GAAG,CAAC,CAAC,EAAE,CAAC,AACpC,CAAC;ACkBD,EAAE,eAAC,CAAC,AACF,MAAM,CAAE,CAAC,AACX,CAAC,AACD,MAAM,eAAC,CAAC,AACN,gBAAgB,CAAE,IAAI,GAAG,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAClC,KAAK,CAAE,IAAI,AACb,CAAC,AACD,MAAM,CAAC,QAAQ,CAAC,eAAC,CAAC,AAChB,gBAAgB,CAAE,IAAI,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,CACpC,MAAM,CAAE,WAAW,AACrB,CAAC"
+}
